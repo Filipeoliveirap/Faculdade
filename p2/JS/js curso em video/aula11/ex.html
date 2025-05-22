@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <style>
+        body{
+            background-color: rgb(236, 93, 93);
+            font: normal 20px arial;
+        }
+        
+     </style>
+</head>
+<body>
+    <h1>É brasileiro ou não...</h1>
+    Digite seu país: <input type="text" name="txt1" id="txt1">
+    <input type="button" value="verificar" onclick="verificar()">
+    <div id="res"></div>
+    
+    
+    <script>
+        function verificar() {
+            var pais = document.getElementById('txt1').value
+            var res = document.getElementById('res')
+            if(pais.toLowerCase() === 'brasil'){
+                res.innerHTML = `<p> Você é <strong>brasileiro</strong></p>`
+            } else{
+                
+                res.innerHTML = `<p> Você é <strong>estrangeiro</strong></p>`
+            }
+            
+        }
+
+    </script>
+</body>
+</html>
