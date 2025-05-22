@@ -28,8 +28,20 @@ INSERT INTO orgaos VALUES
 
 --Consulta JOIN
 
-SELECT v.NumFunc, v.cpf, o.sigla FROM vinculos v 
-JOIN orgaos o ON v.orgao = o.nome;
+EXPLAIN ANALYZE
+SELECT v.NumFunc, v.cpf, o.sigla
+FROM vinculos v
+JOIN orgaos o ON v.orgao = o.nome; --"Execution Time: 9.800 ms"
+
+CREATE INDEX orgaos_nome_idx ON orgaos(nome);
+
+EXPLAIN ANALYZE
+SELECT v.NumFunc, v.cpf, o.sigla
+FROM vinculos v
+JOIN orgaos o ON v.orgao = o.nome; --"Execution Time: 5.654 ms" com índice
+
+
+
 
 --quantidade
 SELECT COUNT(*) FROM vinculos;

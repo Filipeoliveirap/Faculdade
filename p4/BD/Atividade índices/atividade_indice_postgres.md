@@ -84,10 +84,29 @@ FROM vinculos v
 JOIN orgaos o ON v.orgao = o.nome
 WHERE v.NumFunc = '400123';
 ```
-
+Resultado do tempo: 
+`Execution Time: 9.800 ms` 
 ---
 
-## 7. Quantidade de registros importados
+---
+## 7. Criação do índice para a consulta JOIN
+
+```sql
+CREATE INDEX orgaos_nome_idx ON orgaos(nome);
+```
+Consulta com com indice criado
+
+```sql
+EXPLAIN ANALYZE
+SELECT v.NumFunc, v.cpf, o.sigla
+FROM vinculos v
+JOIN orgaos o ON v.orgao = o.nome;
+```
+
+Resultado do tempo:
+`Execution Time: 5.654 ms` 
+
+## 8. Quantidade de registros importados
 
 ```sql
 SELECT COUNT(*) FROM vinculos;
@@ -102,6 +121,7 @@ Resultado:
 
 - O índice na coluna `NumFunc` melhorou significativamente o tempo da consulta.  
 - A consulta com junção funciona corretamente relacionando os dados da tabela `vinculos` com `orgaos`.
+- O índice na coluna `nome` também melhorou o tempo de consulta JOIN.
 
 ---
 
