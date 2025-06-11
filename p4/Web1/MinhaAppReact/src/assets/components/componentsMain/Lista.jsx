@@ -3,19 +3,21 @@ import { useState } from 'react';
 
 function Lista() {
     const ListaComDados = [
-    {id: 1, nome : "João", idade: 30, cidade: "São Paulo"},
-    {id: 2, nome : "Maria", idade: 25, cidade: "Rio de Janeiro"},
-    {id: 3, nome : "Pedro", idade: 28, cidade: "Belo Horizonte"},
+    {id: 1, nome : "João", sobrenome: "silva", cpf: 123123123123, Nascimento: "21/04/2025"},
+    {id: 2, nome : "Maria", sobrenome: "pereira", cpf: 32132132133, Nascimento: "21/06/2003"},
+    {id: 3, nome : "Pedro", sobrenome: "oliveira", cpf: 32132132133, Nascimento: "21/06/2004"}
   ]
   const [dados, setDados] = useState(ListaComDados);
 
-  const handlerAdicionar = () => {
-    const novoDado = ("Adicionado")
-    setDados([...dados, novoDado]);
+  
+
+  const handlerclick = (e) => {
+    
   };
 
-  const handlerRemover = () => {
-    setDados(dados.slice(0, -1));
+  const removerPessoa = (id) => {
+    let listaAtualizada = dados.filter((pessoa) => {return pessoa.id == id ? false : true;});
+    setDados(listaAtualizada)
   };
     return (
         <Table striped bordered hover variant="dark">
@@ -23,19 +25,21 @@ function Lista() {
                 <tr>
                 <th>id</th>
                 <th>nome</th>
-                <th>idade</th>
-                <th>cidade</th>
+                <th>sobrenome</th>
+                <th>cpf</th>
+                <th>Nascimento</th>
                 <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                {dados.map((item, index) => (
-                    <tr key={index}>
+                {dados.map((item) => (
+                    <tr key={item.id}>
                         <td>{item.id}</td>
                         <td>{item.nome}</td>
-                        <td>{item.idade}</td>
-                        <td>{item.cidade}</td>
-                        <td><Button variant="primary" onClick={handlerAdicionar}>Adicionar</Button><Button variant="danger" onClick={handlerRemover}>Remover</Button></td>
+                        <td>{item.sobrenome}</td>
+                        <td>{item.cpf}</td>
+                        <td>{item.Nascimento}</td>
+                        <td><Button variant="primary">Editar</Button><Button variant="danger" onClick={(e) => {removerPessoa(item.id)}}>Remover</Button></td>
                     </tr>
                 ))}
             </tbody>
