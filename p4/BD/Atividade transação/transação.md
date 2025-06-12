@@ -175,9 +175,8 @@ A transação 2 **espera** a liberação do lock e aplica seu `UPDATE`.
 
 ## b) Teste com nível de isolamento `SERIALIZABLE`
 
-### Passos:
 
-1. Inicie duas transações com:
+1. 
 
 ```sql
 BEGIN;
@@ -218,11 +217,6 @@ A transação 2 **é abortada** automaticamente por conflito de serialização.
 ---
 
 ## c) Mesmo teste anterior, mas com `ROLLBACK` na SESSÃO 1
-
-### Passos:
-
-1. Ambas iniciam com `SERIALIZABLE`.
-2. Ambas tentam dar `UPDATE` na mesma linha.
 
 **SESSÃO 1:**
 
