@@ -109,7 +109,7 @@ UPDATE orders SET total = 999.99 WHERE id = 1;
 
 - **vi** Consulta após update:
 
--[](./vii-consulta-apos-update.PNG)
+-![](./vii-consulta-apos-update.PNG)
 
 - **vi.** O valor continua o mesmo, pois está preso ao snapshot da transação.
 
@@ -121,7 +121,7 @@ UPDATE orders SET total = 999.99 WHERE id = 1;
 
 - **x.** Consulta após o commit da sessão 1:
 
--[](./ix-consultandonovamente.PNG)
+-![](./ix-consultandonovamente.PNG)
 
 - **x.** Agora vê 999.99 porque é uma nova transação.
 
