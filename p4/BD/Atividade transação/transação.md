@@ -63,12 +63,17 @@ UPDATE orders SET total = 999.99 WHERE id = 1;
 COMMIT;
 ```
 
-- **iv** ![Consulta sessão 1](./iii-sessao1-consulta.PNG)
-- **vi.** ![Consulta sessão 1 depois do UPDATE na sessão 2](./iii-sessao1-consulta.PNG)
+- **iv** ![](./iii-sessao1-consulta.PNG)
+
+- **vi.** ![](./iii-sessao1-consulta.PNG)
 O valor não mudou, porque a transação da SESSÃO 2 ainda não foi comitada.
-- **Vii** ![Consulta sessão 1 após o commit na sessão 2](./vii-consulta-apos-update.PNG)
+
+- **Vii** ![](./vii-consulta-apos-update.PNG)
+
 - **viii.** O valor mudou, porque o read committed permite ver alterações comitadas.
-- **ix** ![Consulta sessão 1 apos o commit](./vii-consulta-apos-update.PNG)
+
+- **ix** ![](./vii-consulta-apos-update.PNG)
+
 - **x.** O valor continua o mesmo, pois após commit a transação foi encerrada e a próxima leitura usa novo snapshot.
 
 ### REPEATABLE READ
@@ -88,12 +93,19 @@ BEGIN;
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 UPDATE orders SET total = 999.99 WHERE id = 1;
 ```
-- **iii** ![Consulta inicial sessão 1 ](./vii-consulta-apos-update.PNG)
-- **v** ![Consulta sessão 1 após o update na sessão 2 ](./vii-consulta-apos-update.PNG)
+
+- **iii** ![](./vii-consulta-apos-update.PNG)
+
+- **v** ![](./vii-consulta-apos-update.PNG)
+
 - **vi.** O valor continua o mesmo.
-- **viii.** ![Consulta sessão 1 após o update na sessão 2 ](./vii-consulta-apos-update.PNG)
+
+- **viii.** ![](./vii-consulta-apos-update.PNG)
+
 Valor continua o mesmo.
-- **x.** ![Consulta sessão 1 após o update na sessão 2 ](./ix-consultandonovamente.PNG)
+
+- **x.** ![](./ix-consultandonovamente.PNG)
+
 Agora vê 999.99 porque é uma nova transação.
 
 ## 8. Anomalia Phantom Read
@@ -107,7 +119,10 @@ BEGIN;
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 SELECT * FROM orders WHERE total > 300;
 ```
-- **resultado** ![Consulta ](./ix-consultandonovamente.PNG)
+
+
+- **resultado** ![](./ix-consultandonovamente.PNG)
+
 
 **SESSÃO 2:**
 
@@ -123,7 +138,10 @@ COMMIT;
 ```sql
 SELECT * FROM orders WHERE total > 300;
 ```
-- **resultado** ![Consulta ](./phantomread.PNG)
+
+
+- **resultado** ![](./phantomread.PNG)
+
 
 → Resultado diferente apareceu uma linha a mais: ocorreu phantom read.
 
@@ -136,7 +154,10 @@ BEGIN;
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 SELECT * FROM orders WHERE total > 300;
 ```
-- **resultado** ![Consulta ](./phantomread.PNG)
+
+
+- **resultado** ![](./phantomread.PNG)
+
 
 **SESSÃO 2:**
 
@@ -152,7 +173,10 @@ COMMIT;
 ```sql
 SELECT * FROM orders WHERE total > 300;
 ```
-- **resultado** ![Consulta ](./phantomread.PNG)
+
+
+- **resultado** ![](./phantomread.PNG)
+
 
 → SERIALIZABLE evitou a anomalia do phantom read, não apareceu a nova linha inserida na sessão 2.
 
@@ -194,7 +218,9 @@ A transação da SESSÃO 2 é desbloqueada e o `UPDATE` é aplicado.
 
 A transação 2 **espera** a liberação do lock e aplica seu `UPDATE`.
 
-**Resultado:** ![Consulta sessão 2 ](./ix-consultandonovamente.PNG)
+
+**Resultado:** ![](./ix-consultandonovamente.PNG)
+
 
 ---
 
@@ -231,7 +257,9 @@ COMMIT;
 
 4. A SESSÃO 2 falha com o erro:
 
-- ![Erro de conflito de serialização ](./erro.PNG)
+
+- ![](./erro.PNG)
+
 
 ### Resultado:
 
@@ -262,14 +290,18 @@ ROLLBACK;
 
 4. A SESSÃO 2 é liberada e seu `UPDATE` é executado com sucesso.
 
-- ![Erro de conflito de serialização ](./semerro.PNG)
+
+- ![](./semerro.PNG)
+
 
 ### Resultado:
 
 A transação 2 **é executada com sucesso**, pois o conflito foi desfeito.
 
 **Valor final do `total`:**
--![Consulta valor final ](./ix-consultandonovamente.PNG)
+
+
+-![](./ix-consultandonovamente.PNG)
 
 
 ---
