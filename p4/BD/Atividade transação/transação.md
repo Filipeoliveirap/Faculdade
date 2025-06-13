@@ -63,16 +63,25 @@ UPDATE orders SET total = 999.99 WHERE id = 1;
 COMMIT;
 ```
 
-- **iv** ![](./iii-sessao1-consulta.PNG)
+- **iv** Na sessão 1, faça uma consulta
 
-- **vi.** ![](./iii-sessao1-consulta.PNG)
-O valor não mudou, porque a transação da SESSÃO 2 ainda não foi comitada.
+-![](./iii-sessao1-consulta.PNG)
 
-- **Vii** ![](./vii-consulta-apos-update.PNG)
+- **vi.** Repita a consulta na sessão 1
+
+-![](./iii-sessao1-consulta.PNG)
+
+- **vi.**O valor não mudou, porque a transação da SESSÃO 2 ainda não foi comitada.
+
+- **Viii.** repita a consulta 
+
+-![](./vii-consulta-apos-update.PNG)
 
 - **viii.** O valor mudou, porque o read committed permite ver alterações comitadas.
 
-- **ix** ![](./vii-consulta-apos-update.PNG)
+- **ix.** repita a consulta
+
+- ![](./vii-consulta-apos-update.PNG)
 
 - **x.** O valor continua o mesmo, pois após commit a transação foi encerrada e a próxima leitura usa novo snapshot.
 
@@ -94,19 +103,27 @@ SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 UPDATE orders SET total = 999.99 WHERE id = 1;
 ```
 
-- **iii** ![](./vii-consulta-apos-update.PNG)
+- **iv** Consulta inicial
 
-- **v** ![](./vii-consulta-apos-update.PNG)
+-![](./vii-consulta-apos-update.PNG)
 
-- **vi.** O valor continua o mesmo.
+- **vi** Consulta após update!
 
-- **viii.** ![](./vii-consulta-apos-update.PNG)
+-[](./vii-consulta-apos-update.PNG)
 
-Valor continua o mesmo.
+- **vi.** O valor continua o mesmo, pois está preso ao snapshot da transação.
 
-- **x.** ![](./ix-consultandonovamente.PNG)
+- **viii.** Consulta após o commit da sessão 2 
 
-Agora vê 999.99 porque é uma nova transação.
+-![](./vii-consulta-apos-update.PNG)
+
+- **viii,** Valor continua o mesmo, pois ainda não foi feito o commit na sessão 1.
+
+- **x.** Consulta após o commit da sessão 1
+
+-[](./ix-consultandonovamente.PNG)
+
+- **x.** Agora vê 999.99 porque é uma nova transação.
 
 ## 8. Anomalia Phantom Read
 
