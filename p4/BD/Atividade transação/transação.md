@@ -103,7 +103,7 @@ SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 UPDATE orders SET total = 999.99 WHERE id = 1;
 ```
 
-- **iv** Consulta inicial
+- **iv** Consulta inicial:
 
 -![](./vii-consulta-apos-update.PNG)
 
@@ -138,7 +138,9 @@ SELECT * FROM orders WHERE total > 300;
 ```
 
 
-- **resultado** ![](./ix-consultandonovamente.PNG)
+- **resultado** 
+
+![](./ix-consultandonovamente.PNG)
 
 
 **SESSÃO 2:**
@@ -157,7 +159,9 @@ SELECT * FROM orders WHERE total > 300;
 ```
 
 
-- **resultado** ![](./phantomread.PNG)
+- **resultado** 
+
+![](./phantomread.PNG)
 
 
 → Resultado diferente apareceu uma linha a mais: ocorreu phantom read.
@@ -173,7 +177,9 @@ SELECT * FROM orders WHERE total > 300;
 ```
 
 
-- **resultado** ![](./phantomread.PNG)
+- **resultado** 
+
+![](./phantomread.PNG)
 
 
 **SESSÃO 2:**
@@ -192,7 +198,9 @@ SELECT * FROM orders WHERE total > 300;
 ```
 
 
-- **resultado** ![](./phantomread.PNG)
+- **resultado** 
+
+![](./phantomread.PNG)
 
 
 → SERIALIZABLE evitou a anomalia do phantom read, não apareceu a nova linha inserida na sessão 2.
@@ -236,7 +244,9 @@ A transação da SESSÃO 2 é desbloqueada e o `UPDATE` é aplicado.
 A transação 2 **espera** a liberação do lock e aplica seu `UPDATE`.
 
 
-**Resultado:** ![](./ix-consultandonovamente.PNG)
+**Resultado:**
+
+ ![](./ix-consultandonovamente.PNG)
 
 
 ---
@@ -319,6 +329,5 @@ A transação 2 **é executada com sucesso**, pois o conflito foi desfeito.
 
 
 -![](./ix-consultandonovamente.PNG)
-
 
 ---
