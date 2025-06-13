@@ -63,23 +63,23 @@ UPDATE orders SET total = 999.99 WHERE id = 1;
 COMMIT;
 ```
 
-- **iv** Na sessão 1, faça uma consulta
+- **iv** Na sessão 1, faça uma consulta:
 
 -![](./iii-sessao1-consulta.PNG)
 
-- **vi.** Repita a consulta na sessão 1
+- **vi.** Consulta após update da sessão 2:
 
 -![](./iii-sessao1-consulta.PNG)
 
 - **vi.**O valor não mudou, porque a transação da SESSÃO 2 ainda não foi comitada.
 
-- **Viii.** repita a consulta 
+- **Viii.** Consulta após commit da sessão 2:
 
 -![](./vii-consulta-apos-update.PNG)
 
 - **viii.** O valor mudou, porque o read committed permite ver alterações comitadas.
 
-- **ix.** repita a consulta
+- **ix.** Consulta após commit da sessão 1:
 
 - ![](./vii-consulta-apos-update.PNG)
 
@@ -107,19 +107,19 @@ UPDATE orders SET total = 999.99 WHERE id = 1;
 
 -![](./vii-consulta-apos-update.PNG)
 
-- **vi** Consulta após update!
+- **vi** Consulta após update:
 
 -[](./vii-consulta-apos-update.PNG)
 
 - **vi.** O valor continua o mesmo, pois está preso ao snapshot da transação.
 
-- **viii.** Consulta após o commit da sessão 2 
+- **viii.** Consulta após o commit da sessão 2:
 
 -![](./vii-consulta-apos-update.PNG)
 
 - **viii,** Valor continua o mesmo, pois ainda não foi feito o commit na sessão 1.
 
-- **x.** Consulta após o commit da sessão 1
+- **x.** Consulta após o commit da sessão 1:
 
 -[](./ix-consultandonovamente.PNG)
 
