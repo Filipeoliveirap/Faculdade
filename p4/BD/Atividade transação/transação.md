@@ -81,7 +81,7 @@ COMMIT;
 
 - **ix.** Consulta após commit da sessão 1:
 
-- ![](./vii-consulta-apos-update.PNG)
+-![](./vii-consulta-apos-update.PNG)
 
 - **x.** O valor continua o mesmo, pois após commit a transação foi encerrada e a próxima leitura usa novo snapshot.
 
@@ -246,7 +246,7 @@ A transação 2 **espera** a liberação do lock e aplica seu `UPDATE`.
 
 **Resultado:**
 
- ![](./ix-consultandonovamente.PNG)
+![](./ix-consultandonovamente.PNG)
 
 
 ---
@@ -285,7 +285,7 @@ COMMIT;
 4. A SESSÃO 2 falha com o erro:
 
 
-- ![](./erro.PNG)
+-![](./erro.PNG)
 
 
 ### Resultado:
@@ -318,7 +318,7 @@ ROLLBACK;
 4. A SESSÃO 2 é liberada e seu `UPDATE` é executado com sucesso.
 
 
-- ![](./semerro.PNG)
+-![](./semerro.PNG)
 
 
 ### Resultado:
