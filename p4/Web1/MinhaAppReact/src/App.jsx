@@ -1,16 +1,20 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './assets/components/Header';  
-import Main from './assets/components/Main';
-import Footer from './assets/components/Footer';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Layout from "./assets/components/Layout";
+import Main from "./assets/components/Main";
+import Home from "./assets/pages/home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Main />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Main />} />
+          <Route path="home" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

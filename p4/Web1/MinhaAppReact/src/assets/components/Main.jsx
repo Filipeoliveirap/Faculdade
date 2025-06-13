@@ -1,14 +1,12 @@
-import CarouselComponent from './componentsMain/Carousel.jsx';
-import Lista from './componentsMain/Lista.jsx';
+import Cards from "./componentsMain/Cards.jsx";
+import CarouselComponent from "./componentsMain/Carousel.jsx";
+
 
 export default function Main() {
-  
-  
-
   return (
     <main>
       <CarouselComponent />
-      <Lista />
+      <Cards />
     </main>
   );
 }
