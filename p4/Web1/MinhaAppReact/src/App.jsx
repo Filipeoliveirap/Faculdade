@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Layout from "./assets/components/Layout";
+import Layout from "./assets/layout/Layout";
 import Main from "./assets/components/Main";
 import Home from "./assets/pages/home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
