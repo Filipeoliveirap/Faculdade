@@ -16,6 +16,9 @@ import EditContact, {
 } from "./routes/edit";
 import { action as destroyAction } from "./routes/destroy";
 import Index from "./routes/index";
+import NewAba from "./routes/NewAba";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const router = createBrowserRouter([
   {
@@ -45,6 +48,10 @@ const router = createBrowserRouter([
             path: "contacts/:contactId/destroy",
             action: destroyAction,
             errorElement: <div>Oops! There was an error.</div>,
+          },
+          {
+            path: "NewAba",
+            element: <NewAba />,
           },
         ],
       },

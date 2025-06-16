@@ -61,6 +61,9 @@ export default function Root() {
           <Form method="post">
             <button type="submit">New</button>
           </Form>
+          <Link to="/NewAba">
+            <button type="button">NewAba</button>
+          </Link>
         </div>
         <nav>
           {contacts.length ? (
