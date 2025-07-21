@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Layout from "./assets/layout/Layout";
 import Main from "./assets/components/Main";
-import Home from "./assets/pages/home";
+import Home from "./assets/pages/CensoEscolar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
