@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap';
 import instituicoesEnsino from '../datasets/censoescolar';
 import './InstituicaoEnsino.css';
-import Select from '../components/SelectFormulario';
+import SelectUFRegiao from '../components/SelectFormulario';
 
 const InstituicaoEnsino = () => {
   const [instituicaoEnsino, setInstituicaoEnsino] = useState({
@@ -83,7 +83,6 @@ const InstituicaoEnsino = () => {
           </Table>
         </Col>
       </Row>
-
       <Modal show={show} onHide={handleShow} dialogClassName="modal-80w">
         <Modal.Header closeButton>
           <Modal.Title>Instituição de Ensino</Modal.Title>
@@ -119,35 +118,33 @@ const InstituicaoEnsino = () => {
               </Col>
             </Row>
             <Row className="mb-3">
-  <SelectUFRegiao
-    uf={instituicaoEnsino.uf}
-    regiao={instituicaoEnsino.regiao}
-    onUFChange={(values) =>
-      setInstituicaoEnsino((prev) => ({
-        ...prev,
-        uf: values.uf,
-        regiao: values.regiao,
-      }))
-    }
-  />
-</Row>
-<Row>
-  <Col>
-    <Form.Group controlId="formGroupMunicipio">
-      <Form.Label>Município</Form.Label>
-      <Form.Control
-        type="text"
-        name="municipio"
-        value={instituicaoEnsino.municipio}
-        onChange={handleChange}
-        placeholder="Digite o município"
-        required
-      />
-    </Form.Group>
-  </Col>
-</Row>
-
-
+              <SelectUFRegiao
+                uf={instituicaoEnsino.uf}
+                regiao={instituicaoEnsino.regiao}
+                onUFChange={(values) =>
+                  setInstituicaoEnsino((prev) => ({
+                    ...prev,
+                    uf: values.uf,
+                    regiao: values.regiao,
+                  }))
+                }
+              />
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group controlId="formGroupMunicipio">
+                  <Form.Label>Município</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="municipio"
+                    value={instituicaoEnsino.municipio}
+                    onChange={handleChange}
+                    placeholder="Digite o município"
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
             <Button
               variant="warning"
               onClick={(e) => {
@@ -172,4 +169,4 @@ const InstituicaoEnsino = () => {
   );
 };
 
-export default InstituicaoEnsino;
+export default InstituicaoEnsino; 
