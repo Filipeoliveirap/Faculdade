@@ -1,17 +1,18 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Layout from "./assets/layout/Layout";
-import Main from "./assets/components/Main";
-import Home from "./assets/pages/CensoEscolar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router';
+import './App.css';
+import Layout from './layouts/Layout';
+import Home from './pages/Home';
+import InstituicaoEnsino from './pages/InstituicaoEnsino';
+import NoPage from './pages/NoPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Main />} />
-          <Route path="home" element={<Home />} />
+          <Route index element={<Home />} />
+          <Route path="instituicaoensino" element={<InstituicaoEnsino />} />
+          <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

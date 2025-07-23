@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import {
   Button,
@@ -9,9 +8,9 @@ import {
   Row,
   Table,
 } from 'react-bootstrap';
-import instituicoesEnsino from '../datasets/censoEscolar';
-import './CensoEscolar.css';
-import MyComponent from './SelectCensoEscolar';
+import instituicoesEnsino from '../datasets/censoescolar';
+import './InstituicaoEnsino.css';
+import Select from '../components/SelectFormulario';
 
 const InstituicaoEnsino = () => {
   const [instituicaoEnsino, setInstituicaoEnsino] = useState({
@@ -119,37 +118,35 @@ const InstituicaoEnsino = () => {
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <MyComponent/>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="formGroupEmail">
-                  <Form.Label>Município</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Município"
-                    name="municipio"
-                    value={instituicaoEnsino.municipio}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="formGroupEmail">
-                  <Form.Label>Região</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Região"
-                    name="regiao"
-                    value={instituicaoEnsino.regiao}
-                    onChange={handleChange}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+            <Row className="mb-3">
+  <SelectUFRegiao
+    uf={instituicaoEnsino.uf}
+    regiao={instituicaoEnsino.regiao}
+    onUFChange={(values) =>
+      setInstituicaoEnsino((prev) => ({
+        ...prev,
+        uf: values.uf,
+        regiao: values.regiao,
+      }))
+    }
+  />
+</Row>
+<Row>
+  <Col>
+    <Form.Group controlId="formGroupMunicipio">
+      <Form.Label>Município</Form.Label>
+      <Form.Control
+        type="text"
+        name="municipio"
+        value={instituicaoEnsino.municipio}
+        onChange={handleChange}
+        placeholder="Digite o município"
+        required
+      />
+    </Form.Group>
+  </Col>
+</Row>
+
 
             <Button
               variant="warning"
