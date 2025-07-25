@@ -25,12 +25,17 @@ const InstituicaoEnsino = () => {
 
   const handleShow = () => setShow(!show);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Submeteu os dados!', instituicaoEnsino);
+  };
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
-
-    setInstituicaoEnsino({ ...instituicaoEnsino, [name]: value });
-    console.log(instituicaoEnsino);
+    setInstituicaoEnsino((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -47,6 +52,7 @@ const InstituicaoEnsino = () => {
           </Button>
         </Col>
       </Row>
+
       <Row className="mt-2">
         <Col>
           <Table striped bordered hover size="sm">
@@ -64,34 +70,33 @@ const InstituicaoEnsino = () => {
               </tr>
             </thead>
             <tbody>
-              {instituicoesEnsino.map((instituicaoEnsino, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{instituicaoEnsino.codigo}</td>
-                    <td>{instituicaoEnsino.nome}</td>
-                    <td>{instituicaoEnsino.no_uf}</td>
-                    <td>{instituicaoEnsino.no_municipio}</td>
-                    <td>{instituicaoEnsino.no_regiao}</td>
-                    <td>{instituicaoEnsino.qt_mat_bas}</td>
-                    <td>{instituicaoEnsino.qt_mat_prof}</td>
-                    <td>{instituicaoEnsino.qt_mat_eja}</td>
-                    <td>{instituicaoEnsino.qt_mat_esp}</td>
-                  </tr>
-                );
-              })}
+              {instituicoesEnsino.map((item, i) => (
+                <tr key={i}>
+                  <td>{item.codigo}</td>
+                  <td>{item.nome}</td>
+                  <td>{item.no_uf}</td>
+                  <td>{item.no_municipio}</td>
+                  <td>{item.no_regiao}</td>
+                  <td>{item.qt_mat_bas}</td>
+                  <td>{item.qt_mat_prof}</td>
+                  <td>{item.qt_mat_eja}</td>
+                  <td>{item.qt_mat_esp}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Col>
       </Row>
+
       <Modal show={show} onHide={handleShow} dialogClassName="modal-80w">
         <Modal.Header closeButton>
           <Modal.Title>Instituição de Ensino</Modal.Title>
         </Modal.Header>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Modal.Body>
             <Row>
               <Col sm={3}>
-                <Form.Group className="mb-3" controlId="formGroupEmail">
+                <Form.Group className="mb-3">
                   <Form.Label>Código</Form.Label>
                   <Form.Control
                     type="text"
@@ -104,7 +109,7 @@ const InstituicaoEnsino = () => {
                 </Form.Group>
               </Col>
               <Col sm={9}>
-                <Form.Group className="mb-3" controlId="formGroupEmail">
+                <Form.Group className="mb-3">
                   <Form.Label>Nome</Form.Label>
                   <Form.Control
                     type="text"
@@ -117,49 +122,45 @@ const InstituicaoEnsino = () => {
                 </Form.Group>
               </Col>
             </Row>
+
             <Row className="mb-3">
               <SelectUFRegiao
                 uf={instituicaoEnsino.uf}
                 regiao={instituicaoEnsino.regiao}
+                municipio={instituicaoEnsino.municipio}
                 onUFChange={(values) =>
                   setInstituicaoEnsino((prev) => ({
                     ...prev,
                     uf: values.uf,
                     regiao: values.regiao,
+                    municipio: '', // limpa município ao trocar UF
+                  }))
+                }
+                onMunicipioChange={(municipio) =>
+                  setInstituicaoEnsino((prev) => ({
+                    ...prev,
+                    municipio,
                   }))
                 }
               />
             </Row>
-            <Row>
-              <Col>
-                <Form.Group controlId="formGroupMunicipio">
-                  <Form.Label>Município</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="municipio"
-                    value={instituicaoEnsino.municipio}
-                    onChange={handleChange}
-                    placeholder="Digite o município"
-                    required
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+
             <Button
               variant="warning"
-              onClick={(e) => {
-                console.log(instituicaoEnsino);
-              }}
+              onClick={() => console.log(instituicaoEnsino)}
             >
               Exibir
             </Button>
           </Modal.Body>
+
           <Modal.Footer>
             <Button variant="secondary" onClick={handleShow}>
               Fechar
             </Button>
-            <Button variant="danger">Apagar</Button>
-            <Button type="submit" variant="primary" onClick={handleShow}>
+            <Button variant="danger" type="button">
+              Apagar
+            </Button>
+            <Button type="submit" variant="primary">
               Salvar
             </Button>
           </Modal.Footer>
@@ -169,4 +170,4 @@ const InstituicaoEnsino = () => {
   );
 };
 
-export default InstituicaoEnsino; 
+export default InstituicaoEnsino;
