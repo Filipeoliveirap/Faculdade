@@ -9,7 +9,6 @@ import {
   Table,
 } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
-import instituicoesEnsinoDataset from "../datasets/censoescolar";
 import "./InstituicaoEnsino.css";
 import { estadosDataset, getEstadoByCodigo } from "../datasets/estados";
 import {
@@ -21,12 +20,9 @@ const InstituicaoEnsino = () => {
   const [instituicoesEnsino, setInstituicoesEnsino] = useState([]);
 
   useEffect(() => {
-    const dadosSalvos = localStorage.getItem("instituicoesEnsino");
-    if (dadosSalvos) {
-      setInstituicoesEnsino(JSON.parse(dadosSalvos));
-    } else {
-      setInstituicoesEnsino([...instituicoesEnsinoDataset]);
-    }
+    let instituicoesEnsinoString = localStorage.getItem('instituicoesEnsino');
+    let instituicoesEnsinoJson = JSON.parse(instituicoesEnsinoString) || [];
+    setInstituicoesEnsino([...instituicoesEnsinoJson]);
   }, []);
 
   const [instituicaoEnsino, setInstituicaoEnsino] = useState({
@@ -35,6 +31,10 @@ const InstituicaoEnsino = () => {
     estado: { codigo: "", nome: "" },
     municipio: { codigo: "", nome: "" },
     regiao: { codigo: "", nome: "" },
+    qt_mat_bas: "",
+    qt_mat_prof: "",
+    qt_mat_eja: "",
+    qt_mat_esp: "",
   });
 
   let [estados, setEstados] = useState(estadosDataset);
@@ -180,36 +180,40 @@ const InstituicaoEnsino = () => {
             </Row>
             <Row>
               <Col>
-                <label htmlFor="estado">Estado</label>
-                <select
-                  id="estado"
-                  name="estado"
-                  value={instituicaoEnsino.estado.codigo}
-                  onChange={handleChangeEstado}
-                >
-                  <option value="">-</option>
-                  {estados.map((estado, i) => (
-                    <option key={i} value={estado.codigo}>
-                      {estado.nome}
-                    </option>
-                  ))}
-                </select>
+                <Form.Group className="mb-3" controlId="estado">
+                  <Form.Label>Estado</Form.Label>
+                  <Form.Select
+                    id="estado"
+                    name="estado"
+                    value={instituicaoEnsino.estado.codigo}
+                    onChange={handleChangeEstado}
+                  >
+                    <option value="">-</option>
+                    {estados.map((estado, i) => (
+                      <option key={i} value={estado.codigo}>
+                        {estado.nome}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>  
               </Col>
               <Col>
-                <label htmlFor="municipio">Municípios</label>
-                <select
-                  id="municipio"
-                  name="municipio"
-                  value={instituicaoEnsino.municipio.codigo}
-                  onChange={handleChangeMunicipio}
-                >
-                  <option value="">-</option>
-                  {municipios.map((municipio, i) => (
-                    <option key={i} value={String(municipio.codigo)}>
-                      {municipio.nome}
-                    </option>
-                  ))}
-                </select>
+                <Form.Group className="mb-3" controlId="municipio">
+                  <Form.Label>Município</Form.Label>
+                  <Form.Select
+                    id="municipio"
+                    name="municipio"
+                    value={instituicaoEnsino.municipio.codigo}
+                    onChange={handleChangeMunicipio}
+                  >
+                    <option value="">-</option>
+                    {municipios.map((municipio, i) => (
+                      <option key={i} value={String(municipio.codigo)}>
+                        {municipio.nome}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
               </Col>
               <Col>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -255,7 +259,7 @@ const InstituicaoEnsino = () => {
               <Col sm={3}>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                   <Form.Label>
-                    Mat. da Educação de Jovens e Adultos(EJA)
+                    Mat. Educação Jovens Adultos(EJA)
                   </Form.Label>
                   <Form.Control
                     type="text"
