@@ -20,9 +20,25 @@ const InstituicaoEnsino = () => {
   const [instituicoesEnsino, setInstituicoesEnsino] = useState([]);
 
   useEffect(() => {
-    let instituicoesEnsinoString = localStorage.getItem('instituicoesEnsino');
-    let instituicoesEnsinoJson = JSON.parse(instituicoesEnsinoString) || [];
-    setInstituicoesEnsino([...instituicoesEnsinoJson]);
+    fetch("http://localhost:3000/instituicoes")
+      .then((response) => response.json())
+      .then((data) => {
+        const adaptado = data.map((item, index) => ({
+          codigo: index + 1,
+          nome: item.nome_instituicao,
+          estado: { codigo: item.codigo_uf, nome: item.nome_uf },
+          municipio: { codigo: null, nome: item.municipio },
+          regiao: { codigo: null, nome: item.mesorregiao },
+          qt_mat_bas: item.quantidade_matriculas_basico,
+          qt_mat_prof: 0,
+          qt_mat_eja: 0,
+          qt_mat_esp: 0,
+        }));
+        setInstituicoesEnsino(adaptado);
+      })
+      .catch((error) =>
+        console.error("Erro ao buscar instituições de ensino:", error)
+      );
   }, []);
 
   const [instituicaoEnsino, setInstituicaoEnsino] = useState({
@@ -195,7 +211,7 @@ const InstituicaoEnsino = () => {
                       </option>
                     ))}
                   </Form.Select>
-                </Form.Group>  
+                </Form.Group>
               </Col>
               <Col>
                 <Form.Group className="mb-3" controlId="municipio">
@@ -258,9 +274,7 @@ const InstituicaoEnsino = () => {
               </Col>
               <Col sm={3}>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
-                  <Form.Label>
-                    Mat. Educação Jovens Adultos(EJA)
-                  </Form.Label>
+                  <Form.Label>Mat. Educação Jovens Adultos(EJA)</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="EJA"
